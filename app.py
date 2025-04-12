@@ -3,11 +3,11 @@ from openai import OpenAI
 from streamlit_js_eval import streamlit_js_eval
 from urllib.parse import quote
 
-# Setting up the Streamlit page configuration
+
 st.set_page_config(page_title="AnimeVerse Recommendation Bot", page_icon="🌸", layout="wide")
 st.title("AnimeVerse Guide")
 
-# Initialize session state variables
+
 if "setup_complete" not in st.session_state:
     st.session_state.setup_complete = False
 if "user_message_count" not in st.session_state:
@@ -19,18 +19,17 @@ if "chat_complete" not in st.session_state:
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# Helper functions to update session state
 def complete_setup():
     st.session_state.setup_complete = True
 
 def show_recommendations():
     st.session_state.recommendations_shown = True
 
-# Placeholder image functions
+
 def get_anime_placeholder(title, genre=None, dimensions="300x450"):
     """Creates custom anime-themed placeholder images"""
     
-    # Define color schemes based on genre
+  
     genre_colors = {
         "action": "FF5733/FFFFFF",       # Orange background, white text
         "adventure": "FF9900/FFFFFF",    # Dark orange background, white text
@@ -50,13 +49,13 @@ def get_anime_placeholder(title, genre=None, dimensions="300x450"):
         "default": "3357FF/FFFFFF"       # Default blue background, white text
     }
     
-    # Select color scheme based on genre
+  
     colors = genre_colors.get(genre.lower() if genre else "default", genre_colors["default"])
     
-    # Encode the title for URL
+  
     encoded_title = quote(title)
     
-    # Generate placeholder URL
+ 
     placeholder_url = f"https://via.placeholder.com/{dimensions}/{colors}?text={encoded_title}"
     
     return placeholder_url
@@ -66,15 +65,14 @@ def get_themed_placeholder(title, content_type="anime", genre=None):
     
     encoded_title = quote(title)
     
-    # Set appropriate emoji based on content type
+  
     type_emoji = {
         "manga": "📚",
         "movie": "🎬",
         "light novel": "📘",
         "anime": "📺"
     }.get(content_type.lower(), "✨")
-    
-    # Get genre-specific colors
+   
     genre_colors = {
         "action": "FF5733/FFFFFF",
         "romance": "FF9EF0/000000",
@@ -84,8 +82,7 @@ def get_themed_placeholder(title, content_type="anime", genre=None):
         "default": "3357FF/FFFFFF"
     }
     colors = genre_colors.get(genre.lower() if genre else "default", genre_colors["default"])
-    
-    # Adjust dimensions based on content type
+ 
     dimensions = {
         "manga": "350x500",
         "movie": "300x450",
@@ -93,7 +90,7 @@ def get_themed_placeholder(title, content_type="anime", genre=None):
         "anime": "300x450"
     }.get(content_type.lower(), "300x450")
     
-    # Generate URL with type-specific emoji
+    
     return f"https://via.placeholder.com/{dimensions}/{colors}?text={type_emoji}+{encoded_title}"
 
 def create_anime_links(title):
